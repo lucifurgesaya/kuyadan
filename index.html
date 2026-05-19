@@ -368,101 +368,210 @@
     </div>
   </footer>
 
-  <!-- SUPABASE -->
-  <script>
-    const SUPABASE_URL = "https://qvcipcwgzjttqvffdeye.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_LoD9J_ZNZWw5nTMOCmExjw_NgfvOvo6";
+<!-- SUPABASE -->
+<script>
 
-    const supabaseClient = supabase.createClient(
+  const SUPABASE_URL =
+  "https://qvcipcwgzjttqvffdeye.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+  "sb_publishable_LoD9J_ZNZWw5nTMOCmExjw_NgfvOvo6";
+
+  const supabaseClient =
+    supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
-  </script>
 
-  <!-- APP JS -->
-  <script>
+</script>
 
-    const stories = [
-      {
-        title: "Faith Through The Storm",
-        verse: "Mark 4:39",
-      },
-      {
-        title: "Walking In Grace",
-        verse: "Ephesians 2:8",
-      },
-      {
-        title: "The Voice of God",
-        verse: "John 10:27",
-      },
-    ];
+<!-- APP JS -->
+<script>
 
-    const slides = [
-      {
-        title: "Faith",
-        subtitle: "Sharing God's glory through words and ministry.",
-      },
-      {
-        title: "Hope",
-        subtitle: "Stories that inspire hearts and strengthen faith.",
-      },
-      {
-        title: "Grace",
-        subtitle: "Digital creator, storyteller, and servant of God.",
-      },
-    ];
+  // LOAD HERO SECTION
+  async function loadHeroSection(){
 
-    const storiesContainer = document.getElementById('stories-container');
+    const { data, error } =
+      await supabaseClient
+        .from('website_settings')
+        .select('*')
+        .single();
 
-    stories.forEach((story) => {
+    if(error){
+      console.error(error);
+      return;
+    }
+
+    if(data){
+
+      document.getElementById('hero-title')
+        .innerHTML =
+        data.hero_title || 'Kuya Dan';
+
+      document.getElementById('hero-content')
+        .innerText =
+        data.hero_description ||
+        "When the heart speaks, the page blooms with words.";
+
+    }
+
+  }
+
+  // LOAD STORIES
+  async function loadStories(){
+
+    const { data, error } =
+      await supabaseClient
+        .from('stories')
+        .select('*')
+        .order('created_at', {
+          ascending:false
+        });
+
+    if(error){
+      console.error(error);
+      return;
+    }
+
+    const storiesContainer =
+      document.getElementById('stories-container');
+
+    storiesContainer.innerHTML = '';
+
+    data.forEach((story) => {
+
       storiesContainer.innerHTML += `
         <div class="rounded-[2rem] border border-zinc-200 bg-[#fafafa] p-8 card-hover">
 
-          <div class="mb-8 flex h-56 items-center justify-center rounded-[1.5rem] border border-dashed border-zinc-300 bg-white text-zinc-400">
-            Story Thumbnail
-          </div>
+          <img
+            src="${story.image_url || 'https://placehold.co/600x400?text=Story'}"
+            class="mb-8 h-56 w-full object-cover rounded-[1.5rem]"
+          />
 
           <div class="space-y-4">
 
             <span class="rounded-full bg-black px-4 py-2 text-sm text-white">
-              ${story.verse}
+              ${story.verse || ''}
             </span>
 
             <h3 class="text-3xl font-black">
-              ${story.title}
+              ${story.title || ''}
             </h3>
 
-            <p class="text-zinc-600">
-              Editable content connected to Supabase CMS later.
+            <p class="text-zinc-600 line-clamp-4">
+              ${story.content || ''}
             </p>
 
             <button class="pt-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 transition hover:text-black">
               Read Story →
             </button>
+
           </div>
+
         </div>
       `;
     });
 
+  }
+
+  // LOAD HERO SLIDES
+  async function loadSlides(){
+
+    const { data, error } =
+      await supabaseClient
+        .from('hero_slides')
+        .select('*');
+
+    if(error){
+      console.error(error);
+      return;
+    }
+
+    if(!data || data.length === 0){
+      return;
+    }
+
     let currentSlide = 0;
 
-    function changeSlide() {
+    function changeSlide(){
+
+      const slide =
+        data[currentSlide];
+
+      document.getElementById('slide-title')
+        .innerText =
+        slide.title || '';
+
+      document.getElementById('slide-subtitle')
+        .innerText =
+        slide.subtitle || '';
+
       currentSlide++;
 
-      if (currentSlide >= slides.length) {
+      if(currentSlide >= data.length){
         currentSlide = 0;
       }
 
-      document.getElementById('slide-title').innerText =
-        slides[currentSlide].title;
-
-      document.getElementById('slide-subtitle').innerText =
-        slides[currentSlide].subtitle;
     }
 
-    setInterval(changeSlide, 3000);
+    changeSlide();
 
-  </script>
+    setInterval(changeSlide, 4000);
+
+  }
+
+  // LOAD GALLERY
+  async function loadGallery(){
+
+    const { data, error } =
+      await supabaseClient
+        .from('gallery')
+        .select('*')
+        .order('created_at', {
+          ascending:false
+        });
+
+    if(error){
+      console.error(error);
+      return;
+    }
+
+    const gallerySection =
+      document.querySelector('#gallery .grid');
+
+    gallerySection.innerHTML = '';
+
+    data.forEach((image) => {
+
+      gallerySection.innerHTML += `
+        <div class="overflow-hidden rounded-[2rem] shadow-lg bg-white card-hover">
+
+          <img
+            src="${image.image_url}"
+            class="h-[350px] w-full object-cover"
+          />
+
+          <div class="p-5">
+
+            <p class="text-zinc-600 text-sm">
+              ${image.caption || ''}
+            </p>
+
+          </div>
+
+        </div>
+      `;
+    });
+
+  }
+
+  // INITIALIZE WEBSITE
+  loadHeroSection();
+  loadStories();
+  loadSlides();
+  loadGallery();
+
+</script>
 
 </body>
 </html>
