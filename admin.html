@@ -419,7 +419,7 @@
       const { error } =
         await supabaseClient
           .storage
-          .from('uploads')
+          .from('kuya-dan-media')
           .upload(fileName, file);
 
       if(error){
