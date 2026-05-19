@@ -2,465 +2,383 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kuya Dan | Digital Creator & Storyteller</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Kuya Dan Admin Dashboard</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    html {
-      scroll-behavior: smooth;
+    body{
+      background:#f7f5f1;
     }
 
-    body {
-      background: #f7f5f1;
-      overflow-x: hidden;
+    .card{
+      background:white;
+      border-radius:30px;
+      padding:30px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.05);
     }
 
-    .glass {
-      backdrop-filter: blur(20px);
-      background: rgba(255,255,255,0.7);
-    }
-
-    .hero-gradient {
-      background:
-        radial-gradient(circle at top, rgba(255,255,255,0.9), transparent 60%),
-        linear-gradient(to bottom, #ffffff, #f7f5f1);
-    }
-
-    .card-hover {
-      transition: all 0.4s ease;
-    }
-
-    .card-hover:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-    }
-
-    .fade-up {
-      animation: fadeUp 1s ease;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0px);
-      }
+    textarea{
+      resize:none;
     }
   </style>
 </head>
 
-<body class="text-zinc-900">
+<body class="min-h-screen text-zinc-900">
 
   <!-- NAVBAR -->
-  <nav class="fixed top-0 z-50 w-full border-b border-zinc-200 glass">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+  <nav class="border-b border-zinc-200 bg-white sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
 
       <div>
-        <h1 class="text-2xl font-black tracking-wide">
-          Kuya Dan
+        <h1 class="text-3xl font-black">
+          Kuya Dan CMS
         </h1>
 
-        <p class="text-xs uppercase tracking-[0.3em] text-zinc-500">
-          Digital Creator • Storyteller
+        <p class="text-zinc-500 text-sm">
+          Website Admin Dashboard
         </p>
       </div>
 
-      <div class="hidden gap-8 md:flex text-sm font-semibold">
-        <a href="#about" class="hover:text-black transition">About</a>
-        <a href="#stories" class="hover:text-black transition">Stories</a>
-        <a href="#gallery" class="hover:text-black transition">Gallery</a>
-        <a href="#articles" class="hover:text-black transition">Articles</a>
-        <a href="#contact" class="hover:text-black transition">Contact</a>
+      <div class="flex gap-4">
+        <button
+          class="bg-black text-white px-6 py-3 rounded-2xl"
+        >
+          Live Website
+        </button>
       </div>
+
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="relative overflow-hidden pt-40 hero-gradient">
-    <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 px-6 py-20 lg:grid-cols-2">
+  <!-- MAIN -->
+  <main class="max-w-7xl mx-auto px-6 py-10 space-y-10">
 
-      <div class="space-y-8 fade-up">
+    <!-- HERO SETTINGS -->
+    <section class="card">
 
-        <div class="inline-flex rounded-full border border-zinc-200 bg-white px-5 py-2 text-sm shadow-sm">
-          ✨ Sharing faith through stories and creativity
-        </div>
-
-        <div class="space-y-6">
-          <h1 id="hero-title" class="text-6xl font-black leading-tight md:text-7xl">
-            Kuya <span class="text-zinc-500">Dan</span>
-          </h1>
-
-          <p id="hero-content" class="max-w-2xl text-xl leading-relaxed text-zinc-600 md:text-2xl">
-            “When the heart speaks, the page blooms with words. I reflect and share for God's glory.”
-          </p>
-        </div>
-
-        <div class="flex flex-wrap gap-4">
-          <button class="rounded-2xl bg-black px-8 py-4 text-white transition hover:scale-105">
-            Stories
-          </button>
-
-          <button class="rounded-2xl border border-zinc-300 bg-white px-8 py-4 transition hover:bg-zinc-100">
-            Read Reflections
-          </button>
-        </div>
-      </div>
-
-      <!-- SLIDESHOW -->
-      <div class="relative fade-up">
-
-        <div class="rounded-[2.5rem] border border-zinc-200 bg-white p-8 shadow-2xl">
-
-          <div class="mb-6 flex items-center justify-between">
-            <div>
-              <h2 class="text-2xl font-black">
-                Featured Highlights
-              </h2>
-
-              <p class="text-zinc-500">
-                Dynamic slideshow connected to Supabase.
-              </p>
-            </div>
-
-            <div class="flex gap-2">
-              <div class="h-3 w-3 rounded-full bg-black"></div>
-              <div class="h-3 w-3 rounded-full bg-zinc-300"></div>
-              <div class="h-3 w-3 rounded-full bg-zinc-300"></div>
-            </div>
-          </div>
-
-          <div id="slideshow" class="space-y-4 rounded-[2rem] bg-[#f7f5f1] p-10 text-center">
-
-            <div class="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-dashed border-zinc-300 text-zinc-400">
-              Image
-            </div>
-
-            <h3 id="slide-title" class="text-4xl font-black">
-              Faith
-            </h3>
-
-            <p id="slide-subtitle" class="mx-auto max-w-md text-lg text-zinc-600">
-              Sharing God's glory through words and ministry.
-            </p>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="mx-auto max-w-7xl px-6 py-28">
-
-    <div class="grid grid-cols-1 gap-16 lg:grid-cols-2">
-
-      <div>
-        <p class="text-sm uppercase tracking-[0.3em] text-zinc-500">
-          About
-        </p>
-
-        <h2 class="mt-4 text-5xl font-black leading-tight">
-          Storyteller,
-          <br>
-          digital creator,
-          <br>
-          servant of God.
+      <div class="mb-8">
+        <h2 class="text-4xl font-black">
+          Hero Section
         </h2>
+
+        <p class="text-zinc-500 mt-2">
+          Edit homepage hero contents.
+        </p>
       </div>
 
-      <div class="space-y-6 text-lg leading-relaxed text-zinc-600">
-        <p>
-          Kuya Dan shares stories, reflections, sermons, and messages centered on faith, hope, and God's grace.
-        </p>
-
-        <p>
-          This website is designed to become a full digital ministry platform where testimonies, devotionals, blogs, and creative content can inspire people around the world.
-        </p>
-
-        <div class="grid grid-cols-2 gap-6 pt-6">
-
-          <div class="rounded-3xl bg-white p-6 shadow-lg">
-            <h3 class="text-4xl font-black">100+</h3>
-            <p class="mt-2 text-zinc-500">Stories Shared</p>
-          </div>
-
-          <div class="rounded-3xl bg-white p-6 shadow-lg">
-            <h3 class="text-4xl font-black">∞</h3>
-            <p class="mt-2 text-zinc-500">Faith & Inspiration</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STORIES -->
-  <section id="stories" class="bg-white py-28">
-
-    <div class="mx-auto max-w-7xl px-6">
-
-      <div class="mb-16 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+      <div class="space-y-6">
 
         <div>
-          <p class="text-sm uppercase tracking-[0.3em] text-zinc-500">
-            Featured Stories
-          </p>
+          <label class="font-semibold">
+            Hero Title
+          </label>
 
-          <h2 class="mt-4 text-5xl font-black">
-            Stories & Reflections
-          </h2>
+          <input
+            id="heroTitle"
+            type="text"
+            class="w-full mt-2 border border-zinc-300 rounded-2xl p-4"
+            placeholder="Kuya Dan"
+          />
         </div>
 
-        <p class="max-w-xl text-lg text-zinc-600">
-          Stories of faith, grace, testimony, and inspiration that glorify God.
+        <div>
+          <label class="font-semibold">
+            Hero Description
+          </label>
+
+          <textarea
+            id="heroDescription"
+            rows="5"
+            class="w-full mt-2 border border-zinc-300 rounded-2xl p-4"
+            placeholder="Write hero description..."
+          ></textarea>
+        </div>
+
+        <button
+          onclick="updateHeroSection()"
+          class="bg-black text-white px-8 py-4 rounded-2xl hover:scale-105 transition"
+        >
+          Save Hero Section
+        </button>
+
+      </div>
+    </section>
+
+    <!-- CREATE STORY -->
+    <section class="card">
+
+      <div class="mb-8">
+        <h2 class="text-4xl font-black">
+          Create Story
+        </h2>
+
+        <p class="text-zinc-500 mt-2">
+          Add sermons, reflections, devotionals, or testimonies.
         </p>
       </div>
 
-      <div id="stories-container" class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
-      </div>
-    </div>
-  </section>
+      <div class="space-y-6">
 
-  <!-- FEATURED VERSE -->
-  <section class="mx-auto max-w-7xl px-6 py-20">
+        <div>
+          <label class="font-semibold">
+            Story Title
+          </label>
 
-    <div class="overflow-hidden rounded-[3rem] bg-gradient-to-r from-black to-zinc-800 p-12 text-white shadow-2xl">
-
-      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
-
-        <div class="space-y-6">
-
-          <p class="text-sm uppercase tracking-[0.4em] text-zinc-400">
-            Featured Verse
-          </p>
-
-          <h2 class="text-5xl font-black leading-tight">
-            “Your word is a lamp unto my feet.”
-          </h2>
-
-          <p class="text-xl text-zinc-300">
-            Psalm 119:105 — A ministry centered on truth, hope, and the light of God's Word.
-          </p>
+          <input
+            id="storyTitle"
+            type="text"
+            class="w-full mt-2 border border-zinc-300 rounded-2xl p-4"
+            placeholder="Faith Through The Storm"
+          />
         </div>
 
-        <div class="rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-xl">
-          <p class="text-lg leading-relaxed text-zinc-200">
-            A platform where stories, sermons, devotionals, and reflections inspire hearts around the world.
-          </p>
+        <div>
+          <label class="font-semibold">
+            Bible Verse
+          </label>
+
+          <input
+            id="storyVerse"
+            type="text"
+            class="w-full mt-2 border border-zinc-300 rounded-2xl p-4"
+            placeholder="Mark 4:39"
+          />
         </div>
+
+        <div>
+          <label class="font-semibold">
+            Story Content
+          </label>
+
+          <textarea
+            id="storyContent"
+            rows="10"
+            class="w-full mt-2 border border-zinc-300 rounded-2xl p-4"
+            placeholder="Write the story here..."
+          ></textarea>
+        </div>
+
+        <button
+          onclick="createStory()"
+          class="bg-black text-white px-8 py-4 rounded-2xl hover:scale-105 transition"
+        >
+          Publish Story
+        </button>
+
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- GALLERY -->
-  <section id="gallery" class="mx-auto max-w-7xl px-6 py-28">
+    <!-- STORIES LIST -->
+    <section class="card">
 
-    <div class="mb-16 text-center">
-      <p class="text-sm uppercase tracking-[0.3em] text-zinc-500">
-        Gallery
-      </p>
+      <div class="mb-8">
+        <h2 class="text-4xl font-black">
+          Published Stories
+        </h2>
 
-      <h2 class="mt-4 text-5xl font-black">
-        Ministry Moments
-      </h2>
-    </div>
-
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-
-      <div class="flex h-[350px] items-center justify-center rounded-[2rem] border border-dashed border-zinc-300 bg-white text-zinc-400">
-        Upload Future Image
-      </div>
-
-      <div class="flex h-[350px] items-center justify-center rounded-[2rem] border border-dashed border-zinc-300 bg-white text-zinc-400">
-        Upload Future Image
-      </div>
-
-      <div class="flex h-[350px] items-center justify-center rounded-[2rem] border border-dashed border-zinc-300 bg-white text-zinc-400">
-        Upload Future Image
-      </div>
-
-      <div class="flex h-[350px] items-center justify-center rounded-[2rem] border border-dashed border-zinc-300 bg-white text-zinc-400">
-        Upload Future Image
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ARTICLES -->
-  <section id="articles" class="bg-black py-28 text-white">
-
-    <div class="mx-auto max-w-5xl px-6 text-center">
-
-      <p class="text-sm uppercase tracking-[0.3em] text-zinc-400">
-        Reflections
-      </p>
-
-      <h2 class="mt-6 text-5xl font-black leading-tight md:text-6xl">
-        Words that inspire,
-        <br>
-        encourage, and glorify God.
-      </h2>
-
-      <p class="mx-auto mt-8 max-w-3xl text-xl leading-relaxed text-zinc-300">
-        A future-ready article and sermon system connected to Supabase CMS and admin dashboard.
-      </p>
-
-      <button class="mt-12 rounded-2xl bg-white px-8 py-4 font-semibold text-black transition hover:scale-105">
-        Explore Reflections
-      </button>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="mx-auto max-w-5xl px-6 py-28 text-center">
-
-    <p class="text-sm uppercase tracking-[0.3em] text-zinc-500">
-      Contact
-    </p>
-
-    <h2 class="mt-4 text-5xl font-black">
-      Let’s Connect
-    </h2>
-
-    <p class="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
-      For ministry opportunities, collaborations, speaking invitations, and creative projects.
-    </p>
-
-    <div class="mt-12 flex flex-wrap justify-center gap-6">
-
-      <button class="rounded-2xl bg-black px-8 py-4 text-white transition hover:scale-105">
-        Facebook
-      </button>
-
-      <button class="rounded-2xl border border-zinc-300 px-8 py-4 transition hover:bg-zinc-100">
-        YouTube
-      </button>
-
-      <button class="rounded-2xl border border-zinc-300 px-8 py-4 transition hover:bg-zinc-100">
-        Email
-      </button>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="border-t border-zinc-200 bg-white">
-
-    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-center md:flex-row md:text-left">
-
-      <div>
-        <h3 class="text-xl font-black">Kuya Dan</h3>
-
-        <p class="text-sm text-zinc-500">
-          Sharing God's glory through stories and creativity.
+        <p class="text-zinc-500 mt-2">
+          Manage all website stories and sermons.
         </p>
       </div>
 
-      <p class="text-sm text-zinc-500">
-        © 2026 Kuya Dan Portfolio. All rights reserved.
-      </p>
-    </div>
-  </footer>
+      <div
+        id="storiesList"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+      </div>
+
+    </section>
+
+  </main>
 
   <!-- SUPABASE -->
   <script>
-    const SUPABASE_URL = "YOUR_SUPABASE_URL";
-    const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+    const SUPABASE_URL =
+    "https://qvcipcwgzjttqvffdeye.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+    "sb_publishable_LoD9J_ZNZWw5nTMOCmExjw_NgfvOvo6";
 
     const supabaseClient = supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
+
   </script>
 
-  <!-- APP JS -->
+  <!-- ADMIN JS -->
   <script>
 
-    const stories = [
-      {
-        title: "Faith Through The Storm",
-        verse: "Mark 4:39",
-      },
-      {
-        title: "Walking In Grace",
-        verse: "Ephesians 2:8",
-      },
-      {
-        title: "The Voice of God",
-        verse: "John 10:27",
-      },
-    ];
+    // LOAD WEBSITE SETTINGS
+    async function loadWebsiteSettings() {
 
-    const slides = [
-      {
-        title: "Faith",
-        subtitle: "Sharing God's glory through words and ministry.",
-      },
-      {
-        title: "Hope",
-        subtitle: "Stories that inspire hearts and strengthen faith.",
-      },
-      {
-        title: "Grace",
-        subtitle: "Digital creator, storyteller, and servant of God.",
-      },
-    ];
+      const { data, error } =
+        await supabaseClient
+          .from('website_settings')
+          .select('*')
+          .single();
 
-    const storiesContainer = document.getElementById('stories-container');
+      if(error){
+        console.error(error);
+        return;
+      }
 
-    stories.forEach((story) => {
-      storiesContainer.innerHTML += `
-        <div class="rounded-[2rem] border border-zinc-200 bg-[#fafafa] p-8 card-hover">
+      document.getElementById('heroTitle').value =
+        data.hero_title;
 
-          <div class="mb-8 flex h-56 items-center justify-center rounded-[1.5rem] border border-dashed border-zinc-300 bg-white text-zinc-400">
-            Story Thumbnail
-          </div>
+      document.getElementById('heroDescription').value =
+        data.hero_description;
+    }
 
-          <div class="space-y-4">
+    // UPDATE HERO
+    async function updateHeroSection() {
 
-            <span class="rounded-full bg-black px-4 py-2 text-sm text-white">
-              ${story.verse}
-            </span>
+      const heroTitle =
+        document.getElementById('heroTitle').value;
+
+      const heroDescription =
+        document.getElementById('heroDescription').value;
+
+      const { error } =
+        await supabaseClient
+          .from('website_settings')
+          .update({
+            hero_title: heroTitle,
+            hero_description: heroDescription
+          })
+          .eq('id', 1);
+
+      if(error){
+        console.error(error);
+        alert('Update Failed');
+        return;
+      }
+
+      alert('Hero Updated Successfully!');
+    }
+
+    // LOAD STORIES
+    async function loadStories() {
+
+      const { data, error } =
+        await supabaseClient
+          .from('stories')
+          .select('*')
+          .order('created_at', {
+            ascending:false
+          });
+
+      if(error){
+        console.error(error);
+        return;
+      }
+
+      const storiesList =
+        document.getElementById('storiesList');
+
+      storiesList.innerHTML = '';
+
+      data.forEach((story) => {
+
+        storiesList.innerHTML += `
+          <div class="border border-zinc-200 rounded-3xl p-6">
 
             <h3 class="text-3xl font-black">
               ${story.title}
             </h3>
 
-            <p class="text-zinc-600">
-              Editable content connected to Supabase CMS later.
+            <p class="text-zinc-500 mt-2">
+              ${story.verse}
             </p>
 
-            <button class="pt-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 transition hover:text-black">
-              Read Story →
-            </button>
+            <p class="mt-6 text-zinc-700 line-clamp-4">
+              ${story.content}
+            </p>
+
+            <div class="flex gap-4 mt-8">
+
+              <button
+                onclick="deleteStory(${story.id})"
+                class="bg-red-500 text-white px-5 py-3 rounded-2xl"
+              >
+                Delete
+              </button>
+
+            </div>
+
           </div>
-        </div>
-      `;
-    });
+        `;
+      });
 
-    let currentSlide = 0;
-
-    function changeSlide() {
-      currentSlide++;
-
-      if (currentSlide >= slides.length) {
-        currentSlide = 0;
-      }
-
-      document.getElementById('slide-title').innerText =
-        slides[currentSlide].title;
-
-      document.getElementById('slide-subtitle').innerText =
-        slides[currentSlide].subtitle;
     }
 
-    setInterval(changeSlide, 3000);
+    // CREATE STORY
+    async function createStory() {
+
+      const title =
+        document.getElementById('storyTitle').value;
+
+      const verse =
+        document.getElementById('storyVerse').value;
+
+      const content =
+        document.getElementById('storyContent').value;
+
+      const slug =
+        title.toLowerCase().replaceAll(' ', '-');
+
+      const { error } =
+        await supabaseClient
+          .from('stories')
+          .insert([
+            {
+              title,
+              verse,
+              content,
+              slug
+            }
+          ]);
+
+      if(error){
+        console.error(error);
+        alert('Failed creating story');
+        return;
+      }
+
+      alert('Story Published Successfully!');
+
+      document.getElementById('storyTitle').value = '';
+      document.getElementById('storyVerse').value = '';
+      document.getElementById('storyContent').value = '';
+
+      loadStories();
+    }
+
+    // DELETE STORY
+    async function deleteStory(id) {
+
+      const { error } =
+        await supabaseClient
+          .from('stories')
+          .delete()
+          .eq('id', id);
+
+      if(error){
+        console.error(error);
+        return;
+      }
+
+      loadStories();
+    }
+
+    // INITIALIZE
+    loadWebsiteSettings();
+    loadStories();
 
   </script>
 
