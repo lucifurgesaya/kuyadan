@@ -21,6 +21,7 @@
     body{
       background:#f7f5f1;
       overflow-x:hidden;
+      font-family:Arial, sans-serif;
     }
 
     .card{
@@ -41,6 +42,15 @@
     .glass{
       backdrop-filter:blur(20px);
       background:rgba(255,255,255,0.7);
+    }
+
+    .preview-image{
+      width:100%;
+      height:260px;
+      object-fit:cover;
+      border-radius:24px;
+      margin-top:20px;
+      border:1px solid #e4e4e7;
     }
 
   </style>
@@ -194,6 +204,28 @@
 
             </div>
 
+            <!-- IMAGE UPLOAD -->
+            <div>
+
+              <label class="font-semibold">
+                Story Thumbnail
+              </label>
+
+              <input
+                id="storyImage"
+                type="file"
+                accept="image/*"
+                onchange="previewImage(event)"
+                class="w-full mt-2 border border-zinc-300 rounded-2xl p-4 bg-white"
+              />
+
+              <img
+                id="imagePreview"
+                class="preview-image hidden"
+              />
+
+            </div>
+
             <div>
 
               <label class="font-semibold">
@@ -307,6 +339,18 @@
   <!-- ADMIN JS -->
   <script>
 
+    // IMAGE PREVIEW
+    function previewImage(event){
+
+      const image =
+        document.getElementById('imagePreview');
+
+      image.src =
+        URL.createObjectURL(event.target.files[0]);
+
+      image.classList.remove('hidden');
+    }
+
     // REFRESH LIVE PREVIEW
     function refreshPreview() {
 
@@ -366,6 +410,34 @@
       refreshPreview();
     }
 
+    // UPLOAD IMAGE
+    async function uploadImage(file) {
+
+      const fileName =
+        `${Date.now()}-${file.name}`;
+
+      const { error } =
+        await supabaseClient
+          .storage
+          .from('uploads')
+          .upload(fileName, file);
+
+      if(error){
+        console.error(error);
+        return null;
+      }
+
+      const {
+        data: publicUrlData
+      } =
+        supabaseClient
+          .storage
+          .from('uploads')
+          .getPublicUrl(fileName);
+
+      return publicUrlData.publicUrl;
+    }
+
     // LOAD STORIES
     async function loadStories() {
 
@@ -390,28 +462,37 @@
       data.forEach((story) => {
 
         storiesList.innerHTML += `
-          <div class="border border-zinc-200 rounded-[2rem] p-6">
+          <div class="border border-zinc-200 rounded-[2rem] overflow-hidden bg-white shadow-sm">
 
-            <h3 class="text-3xl font-black">
-              ${story.title}
-            </h3>
+            <img
+              src="${story.image_url || 'https://placehold.co/600x400?text=No+Image'}"
+              class="w-full h-64 object-cover"
+            />
 
-            <p class="text-zinc-500 mt-2">
-              ${story.verse}
-            </p>
+            <div class="p-6">
 
-            <p class="mt-6 text-zinc-700 leading-relaxed">
-              ${story.content}
-            </p>
+              <h3 class="text-3xl font-black">
+                ${story.title}
+              </h3>
 
-            <div class="flex gap-4 mt-8">
+              <p class="text-zinc-500 mt-2">
+                ${story.verse}
+              </p>
 
-              <button
-                onclick="deleteStory(${story.id})"
-                class="bg-red-500 text-white px-5 py-3 rounded-2xl"
-              >
-                Delete
-              </button>
+              <p class="mt-6 text-zinc-700 leading-relaxed">
+                ${story.content}
+              </p>
+
+              <div class="flex gap-4 mt-8">
+
+                <button
+                  onclick="deleteStory(${story.id})"
+                  class="bg-red-500 text-white px-5 py-3 rounded-2xl"
+                >
+                  Delete
+                </button>
+
+              </div>
 
             </div>
 
@@ -433,6 +514,17 @@
       const content =
         document.getElementById('storyContent').value;
 
+      const imageFile =
+        document.getElementById('storyImage').files[0];
+
+      let imageUrl = '';
+
+      if(imageFile){
+
+        imageUrl =
+          await uploadImage(imageFile);
+      }
+
       const slug =
         title.toLowerCase().replaceAll(' ', '-');
 
@@ -444,7 +536,8 @@
               title,
               verse,
               content,
-              slug
+              slug,
+              image_url:imageUrl
             }
           ]);
 
@@ -459,6 +552,11 @@
       document.getElementById('storyTitle').value = '';
       document.getElementById('storyVerse').value = '';
       document.getElementById('storyContent').value = '';
+      document.getElementById('storyImage').value = '';
+
+      document
+        .getElementById('imagePreview')
+        .classList.add('hidden');
 
       loadStories();
 
