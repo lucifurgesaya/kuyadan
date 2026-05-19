@@ -1,0 +1,296 @@
+export default function PastorPortfolioWebsite() {
+  const sermons = [
+    {
+      title: "Faith Through The Storm",
+      verse: "Mark 4:39",
+      image:
+        "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
+      title: "Walking In Grace",
+      verse: "Ephesians 2:8",
+      image:
+        "https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=1200&auto=format&fit=crop",
+    },
+    {
+      title: "The Voice of God",
+      verse: "John 10:27",
+      image:
+        "https://images.unsplash.com/photo-1514894786521-9d7d2a2c5b5d?q=80&w=1200&auto=format&fit=crop",
+    },
+  ];
+
+  const gallery = [
+    "https://images.unsplash.com/photo-1438232992991-995b7058bbb3?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=1200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop",
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#f9f7f3] text-zinc-800">
+      {/* NAVBAR */}
+      <nav className="fixed top-0 z-50 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+          <div>
+            <h1 className="text-2xl font-bold tracking-wide">Go-zhan</h1>
+            <p className="text-xs uppercase tracking-[0.25em] text-zinc-500">
+              Pastor • Writer • Servant
+            </p>
+          </div>
+
+          <div className="hidden gap-8 md:flex text-sm font-medium">
+            <a href="#about" className="transition hover:text-black">
+              About
+            </a>
+            <a href="#sermons" className="transition hover:text-black">
+              Sermons
+            </a>
+            <a href="#gallery" className="transition hover:text-black">
+              Gallery
+            </a>
+            <a href="#blog" className="transition hover:text-black">
+              Reflections
+            </a>
+            <a href="#contact" className="transition hover:text-black">
+              Contact
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section className="relative overflow-hidden pt-36">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.9),transparent_60%)]" />
+
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-2">
+          <div className="relative z-10 space-y-8">
+            <div className="inline-flex items-center rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm shadow-sm">
+              ✨ Sharing faith through words and ministry
+            </div>
+
+            <div className="space-y-6">
+              <h1 className="text-5xl font-black leading-tight md:text-7xl">
+                Pastor <span className="text-zinc-500">Go-zhan</span>
+              </h1>
+
+              <p className="max-w-2xl text-xl leading-relaxed text-zinc-600 md:text-2xl">
+                “When the heart speaks, the page blooms with words.
+                I reflect and share for God's glory.”
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <button className="rounded-2xl bg-black px-8 py-4 text-white shadow-xl transition hover:scale-105">
+                View Sermons
+              </button>
+
+              <button className="rounded-2xl border border-zinc-300 bg-white px-8 py-4 transition hover:bg-zinc-100">
+                Read Reflections
+              </button>
+            </div>
+          </div>
+
+          <div className="relative flex justify-center">
+            <div className="absolute -right-10 -top-10 h-72 w-72 rounded-full bg-zinc-300/30 blur-3xl" />
+
+            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/60 bg-white p-4 shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
+                alt="Pastor"
+                className="h-[620px] w-full max-w-md rounded-[2rem] object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="mx-auto max-w-7xl px-6 py-28">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2">
+          <div className="space-y-6">
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+              About The Ministry
+            </p>
+
+            <h2 className="text-5xl font-black leading-tight">
+              Called to serve,
+              <br />
+              called to inspire.
+            </h2>
+          </div>
+
+          <div className="space-y-6 text-lg leading-relaxed text-zinc-600">
+            <p>
+              Pastor Go-zhan dedicates his life to preaching the Gospel,
+              encouraging believers, and sharing reflections that strengthen
+              hearts through Christ.
+            </p>
+
+            <p>
+              This platform serves as a place of faith, testimony, devotion,
+              and ministry—where words become vessels of hope and truth.
+            </p>
+
+            <div className="grid grid-cols-2 gap-6 pt-6">
+              <div className="rounded-3xl bg-white p-6 shadow-lg">
+                <h3 className="text-4xl font-black">10+</h3>
+                <p className="mt-2 text-zinc-500">Years of Ministry</p>
+              </div>
+
+              <div className="rounded-3xl bg-white p-6 shadow-lg">
+                <h3 className="text-4xl font-black">500+</h3>
+                <p className="mt-2 text-zinc-500">Lives Reached</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SERMONS */}
+      <section id="sermons" className="bg-white py-28">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-16 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+                Latest Messages
+              </p>
+
+              <h2 className="mt-4 text-5xl font-black">
+                Sermons & Teachings
+              </h2>
+            </div>
+
+            <p className="max-w-xl text-lg text-zinc-600">
+              Discover messages centered on faith, grace, purpose, and walking
+              closely with God.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
+            {sermons.map((sermon, index) => (
+              <div
+                key={index}
+                className="group overflow-hidden rounded-[2rem] border border-zinc-200 bg-[#fafafa] transition hover:-translate-y-2 hover:shadow-2xl"
+              >
+                <div className="overflow-hidden">
+                  <img
+                    src={sermon.image}
+                    alt={sermon.title}
+                    className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
+                  />
+                </div>
+
+                <div className="space-y-4 p-8">
+                  <span className="rounded-full bg-black px-4 py-2 text-sm text-white">
+                    {sermon.verse}
+                  </span>
+
+                  <h3 className="text-3xl font-bold">{sermon.title}</h3>
+
+                  <button className="pt-4 text-sm font-semibold uppercase tracking-[0.2em] text-zinc-500 transition hover:text-black">
+                    Read More →
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* GALLERY */}
+      <section id="gallery" className="mx-auto max-w-7xl px-6 py-28">
+        <div className="mb-16 text-center">
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+            Ministry Moments
+          </p>
+
+          <h2 className="mt-4 text-5xl font-black">Gallery</h2>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {gallery.map((image, index) => (
+            <div
+              key={index}
+              className="group overflow-hidden rounded-[2rem]"
+            >
+              <img
+                src={image}
+                alt="Gallery"
+                className="h-[400px] w-full object-cover transition duration-700 group-hover:scale-110"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* BLOG */}
+      <section id="blog" className="bg-black py-28 text-white">
+        <div className="mx-auto max-w-5xl px-6 text-center">
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-400">
+            Reflections
+          </p>
+
+          <h2 className="mt-6 text-5xl font-black leading-tight md:text-6xl">
+            Words inspired by faith,
+            <br />
+            grace, and truth.
+          </h2>
+
+          <p className="mx-auto mt-8 max-w-3xl text-xl leading-relaxed text-zinc-300">
+            A collection of devotionals, testimonies, personal reflections,
+            and messages written to glorify God and strengthen hearts.
+          </p>
+
+          <button className="mt-12 rounded-2xl bg-white px-8 py-4 font-semibold text-black transition hover:scale-105">
+            Explore Reflections
+          </button>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="mx-auto max-w-5xl px-6 py-28 text-center">
+        <p className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+          Connect
+        </p>
+
+        <h2 className="mt-4 text-5xl font-black">Let’s Grow In Faith Together</h2>
+
+        <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-zinc-600">
+          For speaking invitations, prayer requests, collaborations, or ministry
+          connections, feel free to reach out.
+        </p>
+
+        <div className="mt-12 flex flex-wrap justify-center gap-6">
+          <button className="rounded-2xl bg-black px-8 py-4 text-white transition hover:scale-105">
+            Facebook
+          </button>
+
+          <button className="rounded-2xl border border-zinc-300 px-8 py-4 transition hover:bg-zinc-100">
+            YouTube
+          </button>
+
+          <button className="rounded-2xl border border-zinc-300 px-8 py-4 transition hover:bg-zinc-100">
+            Email
+          </button>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-zinc-200 bg-white">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-8 text-center md:flex-row md:text-left">
+          <div>
+            <h3 className="text-xl font-bold">Go-zhan</h3>
+            <p className="text-sm text-zinc-500">
+              Sharing God's glory through words and ministry.
+            </p>
+          </div>
+
+          <p className="text-sm text-zinc-500">
+            © 2026 Go-zhan Ministry Portfolio. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
